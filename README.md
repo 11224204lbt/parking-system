@@ -359,3 +359,33 @@ Response (JSON):
     SaveImg --> Alert[指令: 觸發蜂鳴器 & 紅燈]
     Alert --> End((結束))
     GreenLight --> End
+    詳細步驟說明：
+
+事件觸發： 接收到硬體確認有車停入 (is_occupied=true)。
+
+影像擷取與前處理：
+
+使用 Python cv2.VideoCapture 抓取影像。
+
+影像處理演算法： 高斯模糊 (降噪) -> 轉灰階 -> Canny 邊緣偵測 -> 尋找輪廓 (Contours) -> 切割出車牌區域。
+
+OCR 識別： 將切割圖片丟入 Tesseract 或專用模型，轉出字串 (例如 "ABC-1234")。
+
+邏輯比對：
+
+SELECT is_disabled FROM Users WHERE plate_number = 'ABC-1234'
+
+若回傳 True：合法。
+
+若回傳 False 或 NULL (查無此人)：視為違規。
+
+動作執行： 根據結果呼叫對應的 API 更新現場燈號。
+
+#### 4. 模組封裝建議 (Implementation Suggestions)
+為了讓程式碼整潔，建議在詳細設計階段就定義好 Python 的 Class 結構：
+
+class HardwareController: 負責處理 MQTT/HTTP 訊號，不含業務邏輯。
+
+class LPRService: 封裝 OpenCV 功能，輸入圖片，輸出字串。
+
+class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否違規」。

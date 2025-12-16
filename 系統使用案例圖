@@ -1,0 +1,46 @@
+usecaseDiagram
+    %% 定義角色 (Actors)
+    actor "一般駕駛" as Driver
+    actor "無障礙車位使用者" as DisabledDriver
+    actor "系統管理員" as Admin
+    actor "地端硬體(ESP32/感測器)" as Hardware
+
+    %% 定義系統邊界 (System Boundary)
+    package "智慧停車場與無障礙車位管理系統" {
+        %% 核心功能 (Core Features)
+        usecase "車牌辨識進/出場" as UC_LPR
+        usecase "查詢剩餘車位(App/顯示屏)" as UC_Query
+        usecase "自助繳費/模擬支付" as UC_Pay
+        
+        %% 無障礙特定功能 (Accessible Features)
+        usecase "無障礙身分驗證(白名單比對)" as UC_Verify
+        usecase "違規佔用偵測與警示" as UC_Alert
+        
+        %% 管理後台功能 (Admin Features)
+        usecase "即時車位監控儀表板" as UC_Dashboard
+        usecase "管理費率與報表查詢" as UC_Report
+        usecase "手動例外處理(強制開閘)" as UC_Manual
+    }
+
+    %% 定義關聯 (Relationships)
+    %% 一般駕駛的功能
+    Driver --> UC_LPR
+    Driver --> UC_Query
+    Driver --> UC_Pay
+
+    %% 無障礙駕駛的功能 (包含一般功能 + 特定功能)
+    DisabledDriver --|> Driver : 繼承
+    DisabledDriver --> UC_Verify
+
+    %% 管理員功能
+    Admin --> UC_Dashboard
+    Admin --> UC_Report
+    Admin --> UC_Manual
+
+    %% 硬體觸發的功能
+    Hardware --> UC_LPR : 觸發拍照
+    Hardware --> UC_Alert : 觸發感測與警報
+    
+    %% 補充說明關聯 (Include/Extend)
+    %% 違規偵測「包含」了身分驗證的步驟
+    UC_Alert .> UC_Verify : <<include>>

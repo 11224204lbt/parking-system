@@ -92,10 +92,10 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 需設計正規化 (Normalization) 至少達 3NF 的 Schema，包含 Parking_Lots, Records, Users, Violations 等資料表。
 
 ### 概要設計說明書
-1. 系統架構設計 (System Architecture Design)
+#### 1. 系統架構設計 (System Architecture Design)
 本系統採用 B/S (Browser/Server) 與 Client/Server 混合架構，整體邏輯分層如下：
 
-1.1 邏輯架構圖 (Logical Architecture) - 三層式架構
+##### 1.1 邏輯架構圖 (Logical Architecture) - 三層式架構
 系統分為 感知層 (Perception/Client)、業務邏輯層 (Business Logic) 與 資料層 (Data)。
 
 感知層 (Client Tier & IoT Edge)：
@@ -112,15 +112,15 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 資料庫： MySQL。負責儲存使用者資料、停車紀錄、違規影像路徑與費率設定。
 
-1.2 實體部署架構 (Physical Architecture)
+##### 1.2 實體部署架構 (Physical Architecture)
 地端 (Local): 停車場入口閘門控制器、無障礙車位監測模組 (ESP32)。
 
 雲端/伺服器端 (Server): 部署於實驗室伺服器或雲端 (如 AWS/GCP)，運行 Web Server 與 Database。
 
-2. 系統模組劃分 (Module Decomposition)
+#### 2. 系統模組劃分 (Module Decomposition)
 為了方便分工開發，將系統劃分為以下四大核心模組：
 
-2.1 硬體控制模組 (Hardware Control Module)
+##### 2.1 硬體控制模組 (Hardware Control Module)
 功能： 直接控制電子元件。
 
 子模組：
@@ -131,7 +131,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 通訊子系統： 透過 Wi-Fi (HTTP/MQTT) 將狀態傳送至後端。
 
-2.2 影像處理模組 (Image Processing Module)
+##### 2.2 影像處理模組 (Image Processing Module)
 功能： 處理進出場與車位監控的影像分析。
 
 子模組：
@@ -140,7 +140,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 違規偵測 (Violation logic)： (針對無障礙車位) 當硬體感測到有車，但車牌辨識結果不在「身障白名單」內，標記為違規。
 
-2.3 後端管理模組 (Backend Management Module)
+##### 2.3 後端管理模組 (Backend Management Module)
 功能： 系統的大腦，處理所有邏輯運算。
 
 子模組：
@@ -151,7 +151,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
-2.4 前端互動模組 (Frontend Interaction Module)
+##### 2.4 前端互動模組 (Frontend Interaction Module)
 功能： 提供視覺化介面。
 
 子模組：
@@ -160,7 +160,62 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 使用者 APP (App Inventor)： 查詢剩餘車位、試算停車費。
 
-3. 介面設計 (Interface Design)
-3.1 外部介面 (External Interface) - API 設計
+#### 3. 介面設計 (Interface Design)
+##### 3.1 外部介面 (External Interface) - API 設計
 定義硬體與軟體、前端與後端溝通的標準。採用 HTTP RESTful 風格，回傳格式為 JSON。
-![03](https://github.com/11224204lbt/Chatgpt/blob/main/1.png)
+
+![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
+
+##### 3.2 內部介面 (Internal Interface) - 資料庫存取
+後端程式透過 SQL Connector (如 Python 的 mysql-connector 或 SQLAlchemy) 與 MySQL 溝通。
+
+主要資料表 (Entities):
+
+Users (使用者/白名單)
+
+ParkingSpots (車位資訊)
+
+Records (進出紀錄)
+
+Violations (違規紀錄)
+
+##### 3.3 人機介面 (User Interface, UI) 設計規範
+管理後台：
+
+採用「左側選單、右側內容」的佈局。
+
+無障礙車位監控頁面： 需將無障礙車位特別標示（例如使用輪椅圖示），若違規需閃爍紅色邊框。
+
+使用者 APP：
+
+首頁即顯示大字體的「剩餘車位數」，避免駕駛分心。
+
+#### 4. 資料庫概要設計 (Data Design Overview)
+(詳細的 Schema 會在詳細設計階段定義，此處先定義實體關係)
+
+系統主要包含以下實體 (Entities)：
+
+車位 (Spot): 屬性包含編號、類型 (一般/無障礙)、目前狀態。
+
+進出紀錄 (Record): 屬性包含入場時間、出場時間、車牌、費用。
+
+車輛 (Vehicle): 屬性包含車牌號碼、車主資訊、是否為身障車輛 (白名單)。
+
+關鍵關聯 (Relationship):
+
+一個 車位 可以有多筆 進出紀錄 (1:N)。
+
+一台 車輛 可以有多筆 進出紀錄 (1:N)。
+
+#### 5. 技術選型 (Technology Stack)
+這是根據你目前的專題規劃所建議的技術清單：
+
+前端 (Frontend): HTML/CSS/JS (管理後台), App Inventor (手機 App)。
+
+後端 (Backend): Python (Flask) 或 Node.js (Express)。
+
+資料庫 (Database): MySQL 8.0。
+
+硬體 (Hardware): ESP32 (主控), HC-SR04 (超音波), Servo (伺服馬達), WebCam (影像輸入)。
+
+演算法 (Algorithm): OpenCV (影像處理), Tesseract OCR (文字辨識)。

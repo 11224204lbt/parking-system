@@ -227,11 +227,11 @@ Violations (違規紀錄)
 ##### 1.1 實體關聯圖 (ER Diagram)
 這張圖定義了資料表 (Table) 的欄位 (Column)、主鍵 (PK) 與外鍵 (FK)。
 
-erDiagram
-    Users ||--o{ Vehicles : "擁有多輛車"
-    Vehicles ||--o{ Records : "產生進出紀錄"
-    Vehicles ||--o{ Violations : "造成違規"
-    ParkingSpots ||--o{ Violations : "發生於"
+    erDiagram
+         Users ||--o{ Vehicles : "擁有多輛車"
+         Vehicles ||--o{ Records : "產生進出紀錄"
+         Vehicles ||--o{ Violations : "造成違規"
+         ParkingSpots ||--o{ Violations : "發生於"
 
     Users {
         int user_id PK
@@ -267,3 +267,19 @@ erDiagram
         datetime detected_time "偵測時間"
         string image_path "存證照片路徑"
     }
+##### 1.2 資料表規格說明
+Users (白名單): 儲存身障人士資訊，用於判斷是否違規。
+
+Records (流水帳): 當車輛進場時，exit_time 與 fee 預設為 NULL/0，直到出場更新。
+
+Violations (違規): 專門記錄無障礙車位被非白名單車輛佔用的事件。
+
+#### 2. API 介面詳細設計 (Interface Specification)
+定義前端 (App/Web) 與地端硬體 (ESP32) 如何與後端伺服器交換資料。採用 JSON 格式。
+
+##### 2.1 硬體回報 API (ESP32 -> Server)
+用途： 當超音波感測器狀態改變時呼叫。
+
+Endpoint: POST /api/hardware/update_status
+
+Request Body (JSON):

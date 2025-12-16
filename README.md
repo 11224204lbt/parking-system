@@ -312,3 +312,50 @@ Response (JSON):
         {"id": "Disable_01", "status": "occupied"}
       ]
     }
+#### 3. 模組演算法與邏輯流程 (Algorithms & Logic Flow)
+這是程式實作的核心，我們針對兩個最關鍵的邏輯進行詳細描述。
+
+##### 3.1 演算法一：感測器訊號濾波 (防誤判演算法)
+問題： 超音波感測器可能會因為路人經過或訊號抖動，導致數值瞬間跳動，造成系統誤判有車。 解決方案： 實作「時間視窗濾波 (Time Window Filtering)」邏輯。
+
+邏輯描述：
+
+連續偵測： ESP32 每 500ms 讀取一次距離。
+
+狀態計數器：
+
+若 距離 < 閾值(50cm)，計數器 Count + 1。
+
+若 距離 > 閾值，計數器歸零。
+
+觸發判定：
+
+當 Count 累積超過 5 次 (即持續 2.5 秒都有障礙物)，才正式判定為 Occupied (有車)。
+
+避免路人經過瞬間觸發誤報。
+
+##### 3.2 演算法二：無障礙車位違規判斷邏輯 (Core Logic)
+問題： 如何判斷停在無障礙車位上的車是否違規？ 輸入： 車位 ID、當下拍攝的車牌影像。 輸出： 是否違規 (Boolean)、控制指令。
+
+流程圖 (Flowchart):    
+        flowchart TD
+        Start((開始)) --> SensorTrigger[硬體回報: 車位被佔用]
+        SensorTrigger --> Delay[延遲 3秒: 等待車輛停妥]
+        Delay --> Capture[觸發相機拍照]
+        Capture --> LPR[執行 OpenCV 車牌辨識]
+    
+    LPR --> CheckPlate{辨識是否成功?}
+    CheckPlate -- 否/模糊 --> NotifyAdmin[通知管理員人工確認]
+    NotifyAdmin --> KeepMonitor[維持監控]
+    
+    CheckPlate -- 是 --> QueryDB[查詢 Users 白名單資料表]
+    QueryDB --> IsWhiteList{是否為身障車牌?}
+    
+    IsWhiteList -- 是 (合法) --> LogNormal[記錄正常停車]
+    LogNormal --> GreenLight[指令: 亮綠燈/無動作]
+    
+    IsWhiteList -- 否 (違規) --> LogViolation[寫入 Violations 資料表]
+    LogViolation --> SaveImg[儲存違規照片佐證]
+    SaveImg --> Alert[指令: 觸發蜂鳴器 & 紅燈]
+    Alert --> End((結束))
+    GreenLight --> End

@@ -290,7 +290,7 @@ Request Body (JSON):
     }
 Logic: 後端收到 is_occupied: true 且該車位是無障礙車位時，觸發「違規檢查流程」。
 
-2.2 違規警示 API (Server -> ESP32)
+##### 2.2 違規警示 API (Server -> ESP32)
 用途： 後端判斷違規後，命令 ESP32 亮紅燈/鳴叫。 (註：通常由 ESP32 輪詢或透過 MQTT 訂閱 Topic，以下以回應模式為例)
 
 Response (JSON):
@@ -298,7 +298,7 @@ Response (JSON):
       "status": "success",
       "action_command": "ALERT_ON"  // 或 "ALERT_OFF"
     }
-2.3 車位查詢 API (App -> Server)
+##### 2.3 車位查詢 API (App -> Server)
 用途： 手機端查詢剩餘車位。
 
 Endpoint: GET /api/spots/status

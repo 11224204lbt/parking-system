@@ -163,3 +163,4 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 3. 介面設計 (Interface Design)
 3.1 外部介面 (External Interface) - API 設計
 定義硬體與軟體、前端與後端溝通的標準。採用 HTTP RESTful 風格，回傳格式為 JSON。
+![03](https://github.com/11224204lbt/Chatgpt/blob/main/1.png)

@@ -359,7 +359,8 @@ Response (JSON):
     SaveImg --> Alert[指令: 觸發蜂鳴器 & 紅燈]
     Alert --> End((結束))
     GreenLight --> End
-    詳細步驟說明：
+    
+詳細步驟說明：
 
 事件觸發： 接收到硬體確認有車停入 (is_occupied=true)。
 

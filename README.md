@@ -91,6 +91,8 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 需設計正規化 (Normalization) 至少達 3NF 的 Schema，包含 Parking_Lots, Records, Users, Violations 等資料表。
 
+![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
+
 ### 概要設計說明書
 #### 1. 系統架構設計 (System Architecture Design)
 本系統採用 B/S (Browser/Server) 與 Client/Server 混合架構，整體邏輯分層如下：
@@ -391,6 +393,9 @@ class HardwareController: 負責處理 MQTT/HTTP 訊號，不含業務邏輯。
 class LPRService: 封裝 OpenCV 功能，輸入圖片，輸出字串。
 
 class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否違規」。
+
+![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
+
 ### 測試計畫書
 #### 1. 測試目標與範圍 (Objectives & Scope)
 ##### 1.1 測試目標

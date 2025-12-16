@@ -337,12 +337,13 @@ Response (JSON):
 ##### 3.2 演算法二：無障礙車位違規判斷邏輯 (Core Logic)
 問題： 如何判斷停在無障礙車位上的車是否違規？ 輸入： 車位 ID、當下拍攝的車牌影像。 輸出： 是否違規 (Boolean)、控制指令。
 
-流程圖 (Flowchart):    
-        flowchart TD
-        Start((開始)) --> SensorTrigger[硬體回報: 車位被佔用]
-        SensorTrigger --> Delay[延遲 3秒: 等待車輛停妥]
-        Delay --> Capture[觸發相機拍照]
-        Capture --> LPR[執行 OpenCV 車牌辨識]
+流程圖 (Flowchart): 
+
+    flowchart TD
+    Start((開始)) --> SensorTrigger[硬體回報: 車位被佔用]
+    SensorTrigger --> Delay[延遲 3秒: 等待車輛停妥]
+    Delay --> Capture[觸發相機拍照]
+    Capture --> LPR[執行 OpenCV 車牌辨識]
     
     LPR --> CheckPlate{辨識是否成功?}
     CheckPlate -- 否/模糊 --> NotifyAdmin[通知管理員人工確認]

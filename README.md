@@ -219,3 +219,51 @@ Violations (違規紀錄)
 硬體 (Hardware): ESP32 (主控), HC-SR04 (超音波), Servo (伺服馬達), WebCam (影像輸入)。
 
 演算法 (Algorithm): OpenCV (影像處理), Tesseract OCR (文字辨識)。
+
+### 詳細設計說明書
+#### 1. 資料庫詳細設計 (Database Physical Design)
+本系統使用 MySQL 資料庫。以下是將概念轉化為實際 SQL 表格的結構設計。
+
+##### 1.1 實體關聯圖 (ER Diagram)
+這張圖定義了資料表 (Table) 的欄位 (Column)、主鍵 (PK) 與外鍵 (FK)。
+
+erDiagram
+    Users ||--o{ Vehicles : "擁有多輛車"
+    Vehicles ||--o{ Records : "產生進出紀錄"
+    Vehicles ||--o{ Violations : "造成違規"
+    ParkingSpots ||--o{ Violations : "發生於"
+
+    Users {
+        int user_id PK
+        string name "姓名"
+        string phone "電話"
+        boolean is_disabled "是否身障人士(白名單)"
+    }
+
+    Vehicles {
+        string plate_number PK "車牌號碼"
+        int user_id FK "車主ID"
+    }
+
+    ParkingSpots {
+        string spot_id PK "車位編號(A01)"
+        string type "類型(一般/無障礙)"
+        string status "狀態(空/滿/維修)"
+    }
+
+    Records {
+        int record_id PK
+        string plate_number FK
+        datetime entry_time "進場時間"
+        datetime exit_time "出場時間"
+        int fee "費用"
+        boolean is_paid "是否繳費"
+    }
+
+    Violations {
+        int violation_id PK
+        string plate_number FK
+        string spot_id FK
+        datetime detected_time "偵測時間"
+        string image_path "存證照片路徑"
+    }

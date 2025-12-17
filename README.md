@@ -29,7 +29,7 @@
 
 無感出場： 繳費完成後，出場時系統辨識車牌自動開啟閘門。
 ![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
-#### 圖：一般車主停車與繳費情境示意圖 
+#### 圖1：一般車主停車與繳費情境示意圖 
 
 ##### 2.2 無障礙車位使用者 (Accessible Parking User) - 專題核心亮點
 身分驗證： 當車輛停入無障礙車位時，系統需結合車牌辨識或 RFID 識別證，確認該車輛是否具備身障停車資格。
@@ -162,13 +162,14 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 使用者 APP (App Inventor)： 查詢剩餘車位、試算停車費。
 ![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
-#### 圖：使用者 App 操作業務流程圖
+#### 圖2：使用者 App 操作業務流程圖
 
 #### 3. 介面設計 (Interface Design)
 ##### 3.1 外部介面 (External Interface) - API 設計
 定義硬體與軟體、前端與後端溝通的標準。採用 HTTP RESTful 風格，回傳格式為 JSON。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
+#### 圖3
 
 ##### 3.2 內部介面 (Internal Interface) - 資料庫存取
 後端程式透過 SQL Connector (如 Python 的 mysql-connector 或 SQLAlchemy) 與 MySQL 溝通。

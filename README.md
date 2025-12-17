@@ -28,6 +28,8 @@
 自助繳費： 支援輸入車牌號碼查詢停車費用，並進行模擬支付（專題通常使用模擬金流）。
 
 無感出場： 繳費完成後，出場時系統辨識車牌自動開啟閘門。
+![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
+#### 圖：一般車主停車與繳費情境示意圖 
 
 ##### 2.2 無障礙車位使用者 (Accessible Parking User) - 專題核心亮點
 身分驗證： 當車輛停入無障礙車位時，系統需結合車牌辨識或 RFID 識別證，確認該車輛是否具備身障停車資格。
@@ -90,8 +92,6 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 使用 MySQL 作為關聯式資料庫。
 
 需設計正規化 (Normalization) 至少達 3NF 的 Schema，包含 Parking_Lots, Records, Users, Violations 等資料表。
-
-![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
 
 ### 概要設計說明書
 #### 1. 系統架構設計 (System Architecture Design)
@@ -161,6 +161,8 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 管理員儀表板 (Web)： 顯示即時車位圖、營收報表、強制開閘按鈕。
 
 使用者 APP (App Inventor)： 查詢剩餘車位、試算停車費。
+![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
+#### 圖：使用者 App 操作業務流程圖
 
 #### 3. 介面設計 (Interface Design)
 ##### 3.1 外部介面 (External Interface) - API 設計
@@ -393,8 +395,6 @@ class HardwareController: 負責處理 MQTT/HTTP 訊號，不含業務邏輯。
 class LPRService: 封裝 OpenCV 功能，輸入圖片，輸出字串。
 
 class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否違規」。
-
-![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
 
 ### 測試計畫書
 #### 1. 測試目標與範圍 (Objectives & Scope)

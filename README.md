@@ -342,51 +342,9 @@ Response (JSON):
 ##### 3.2 演算法二：無障礙車位違規判斷邏輯 (Core Logic)
 問題： 如何判斷停在無障礙車位上的車是否違規？ 輸入： 車位 ID、當下拍攝的車牌影像。 輸出： 是否違規 (Boolean)、控制指令。
 
-流程圖 (Flowchart): 
+![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E5%BE%AA%E5%BA%8F%E5%9C%96.drawio.png)
 
-    flowchart TD
-    Start((開始)) --> SensorTrigger[硬體回報: 車位被佔用]
-    SensorTrigger --> Delay[延遲 3秒: 等待車輛停妥]
-    Delay --> Capture[觸發相機拍照]
-    Capture --> LPR[執行 OpenCV 車牌辨識]
-    
-    LPR --> CheckPlate{辨識是否成功?}
-    CheckPlate -- 否/模糊 --> NotifyAdmin[通知管理員人工確認]
-    NotifyAdmin --> KeepMonitor[維持監控]
-    
-    CheckPlate -- 是 --> QueryDB[查詢 Users 白名單資料表]
-    QueryDB --> IsWhiteList{是否為身障車牌?}
-    
-    IsWhiteList -- 是 (合法) --> LogNormal[記錄正常停車]
-    LogNormal --> GreenLight[指令: 亮綠燈/無動作]
-    
-    IsWhiteList -- 否 (違規) --> LogViolation[寫入 Violations 資料表]
-    LogViolation --> SaveImg[儲存違規照片佐證]
-    SaveImg --> Alert[指令: 觸發蜂鳴器 & 紅燈]
-    Alert --> End((結束))
-    GreenLight --> End
-    
-詳細步驟說明：
-
-事件觸發： 接收到硬體確認有車停入 (is_occupied=true)。
-
-影像擷取與前處理：
-
-使用 Python cv2.VideoCapture 抓取影像。
-
-影像處理演算法： 高斯模糊 (降噪) -> 轉灰階 -> Canny 邊緣偵測 -> 尋找輪廓 (Contours) -> 切割出車牌區域。
-
-OCR 識別： 將切割圖片丟入 Tesseract 或專用模型，轉出字串 (例如 "ABC-1234")。
-
-邏輯比對：
-
-SELECT is_disabled FROM Users WHERE plate_number = 'ABC-1234'
-
-若回傳 True：合法。
-
-若回傳 False 或 NULL (查無此人)：視為違規。
-
-動作執行： 根據結果呼叫對應的 API 更新現場燈號。
+#### 圖4：無障礙車位違規偵測時序圖
 
 #### 4. 模組封裝建議 (Implementation Suggestions)
 為了讓程式碼整潔，建議在詳細設計階段就定義好 Python 的 Class 結構：

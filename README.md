@@ -21,6 +21,8 @@
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%94%A8%E4%BE%8B%E5%9C%96.png)
 
+#### 圖 0：停車場管理系統用例圖
+
 功能需求依據使用者角色分為三大類：
 
 ##### 2.1 一般車主 / 駕駛 (End User)

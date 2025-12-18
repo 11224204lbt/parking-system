@@ -89,15 +89,9 @@
 
 ##### 4.1 使用者介面 (GUI) - Web/App
 
-視覺化車位圖 (Visual Map)：
+![03](https://github.com/11224204lbt/parking-system/blob/main/%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2%E7%8B%80%E6%85%8B%E9%A1%AF%E7%A4%BA%E8%88%87%E4%BA%92%E5%8B%95%E5%9B%9E%E9%A5%8B%E9%9C%80%E6%B1%82%E7%A4%BA%E6%84%8F%E5%9C%96.png)
 
-管理員介面需繪製停車場平面圖。
-
-使用顏色區分狀態：<span style="color:green">綠色(空位)</span>、<span style="color:red">紅色(已停)</span>、<span style="color:orange">橘色(違規佔用警示)</span>。
-
-響應式設計 (RWD)： 管理介面需適配桌機與平板，方便管理員移動巡視。
-
-操作回饋： 所有按鈕點擊後需有 Loading 動畫或 Toast 訊息提示（如：「修改成功」、「連線逾時」）。
+圖 X：使用者介面狀態顯示與互動回饋需求示意圖
 
 ##### 4.2 硬體介面 (Hardware Interface)
 

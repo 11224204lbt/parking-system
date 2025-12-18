@@ -182,7 +182,8 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 定義硬體與軟體、前端與後端溝通的標準。採用 HTTP RESTful 風格，回傳格式為 JSON。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
-#### 圖3
+
+#### 圖3API 表格
 
 ##### 3.2 內部介面 (Internal Interface) - 資料庫存取
 後端程式透過 SQL Connector (如 Python 的 mysql-connector 或 SQLAlchemy) 與 MySQL 溝通。
@@ -246,6 +247,8 @@ Violations (違規紀錄)
 這張圖定義了資料表 (Table) 的欄位 (Column)、主鍵 (PK) 與外鍵 (FK)。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E8%BB%9F%E5%B7%A5ER%E5%9C%96.png)
+
+圖 6：資料庫實體關聯圖 (ER Diagram)
 
 ##### 1.2 資料表規格說明
 Users (白名單): 儲存身障人士資訊，用於判斷是否違規。

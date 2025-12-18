@@ -236,46 +236,8 @@ Violations (違規紀錄)
 ##### 1.1 實體關聯圖 (ER Diagram)
 這張圖定義了資料表 (Table) 的欄位 (Column)、主鍵 (PK) 與外鍵 (FK)。
 
-    erDiagram
-         Users ||--o{ Vehicles : "擁有多輛車"
-         Vehicles ||--o{ Records : "產生進出紀錄"
-         Vehicles ||--o{ Violations : "造成違規"
-         ParkingSpots ||--o{ Violations : "發生於"
+![03](https://github.com/11224204lbt/parking-system/blob/main/%E8%BB%9F%E5%B7%A5ER%E5%9C%96.png)
 
-    Users {
-        int user_id PK
-        string name "姓名"
-        string phone "電話"
-        boolean is_disabled "是否身障人士(白名單)"
-    }
-
-    Vehicles {
-        string plate_number PK "車牌號碼"
-        int user_id FK "車主ID"
-    }
-
-    ParkingSpots {
-        string spot_id PK "車位編號(A01)"
-        string type "類型(一般/無障礙)"
-        string status "狀態(空/滿/維修)"
-    }
-
-    Records {
-        int record_id PK
-        string plate_number FK
-        datetime entry_time "進場時間"
-        datetime exit_time "出場時間"
-        int fee "費用"
-        boolean is_paid "是否繳費"
-    }
-
-    Violations {
-        int violation_id PK
-        string plate_number FK
-        string spot_id FK
-        datetime detected_time "偵測時間"
-        string image_path "存證照片路徑"
-    }
 ##### 1.2 資料表規格說明
 Users (白名單): 儲存身障人士資訊，用於判斷是否違規。
 

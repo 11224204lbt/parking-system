@@ -45,7 +45,7 @@
 
 無感出場： 繳費完成後，出場時系統辨識車牌自動開啟閘門。
 
-![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
+![03](https://github.com/11224204lbt/parking-system/blob/main/%E4%B8%80%E8%88%AC%E8%BB%8A%E4%B8%BB%E5%81%9C%E8%BB%8A%E8%88%87%E7%B9%B3%E8%B2%BB%E6%83%85%E5%A2%83%E7%A4%BA%E6%84%8F%E5%9C%96.jpg)
 
 #### 圖 2：一般車主停車與繳費情境示意圖 
 

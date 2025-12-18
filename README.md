@@ -121,21 +121,9 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ##### 1.1 邏輯架構圖 (Logical Architecture) - 三層式架構
 
-系統分為 感知層 (Perception/Client)、業務邏輯層 (Business Logic) 與 資料層 (Data)。
+![03](https://github.com/11224204lbt/parking-system/blob/main/%E7%B3%BB%E7%B5%B1%E4%B8%89%E5%B1%A4%E5%BC%8F%E9%82%8F%E8%BC%AF%E6%9E%B6%E6%A7%8B%E5%9C%96.png)
 
-感知層 (Client Tier & IoT Edge)：
-
-硬體端： ESP32/Arduino + 超音波感測器 + 攝影機 + 閘門伺服馬達 + 警示燈/蜂鳴器。負責現場資料蒐集與物理控制。
-
-軟體端： App Inventor (使用者端 APP)、Web 瀏覽器 (管理員後台)。負責人機互動。
-
-業務邏輯層 (Application Tier)：
-
-後端伺服器 (Backend Server)： 執行 Python (Flask/Django) 或 Node.js。負責接收硬體訊號、執行 OpenCV 影像辨識、邏輯判斷 (如：是否違規佔用)、API 回應。
-
-資料層 (Data Tier)：
-
-資料庫： MySQL。負責儲存使用者資料、停車紀錄、違規影像路徑與費率設定。
+圖 X：系統三層式邏輯架構圖
 
 ##### 1.2 實體部署架構 (Physical Architecture)
 

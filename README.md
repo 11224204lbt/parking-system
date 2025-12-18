@@ -33,8 +33,10 @@
 自助繳費： 支援輸入車牌號碼查詢停車費用，並進行模擬支付（專題通常使用模擬金流）。
 
 無感出場： 繳費完成後，出場時系統辨識車牌自動開啟閘門。
+
 ![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
-#### 圖1：一般車主停車與繳費情境示意圖 
+
+#### 圖 1：一般車主停車與繳費情境示意圖 
 
 ##### 2.2 無障礙車位使用者 (Accessible Parking User) - 專題核心亮點
 身分驗證： 當車輛停入無障礙車位時，系統需結合車牌辨識或 RFID 識別證，確認該車輛是否具備身障停車資格。
@@ -126,7 +128,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%B3%BB%E7%B5%B1%E9%83%A8%E7%BD%B2%E5%9C%96.draw.io.png)
 
-#### 圖 X：系統實體部署架構圖
+#### 圖 2：系統實體部署架構圖
 
 #### 2. 系統模組劃分 (Module Decomposition)
 為了方便分工開發，將系統劃分為以下四大核心模組：
@@ -174,8 +176,10 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 管理員儀表板 (Web)： 顯示即時車位圖、營收報表、強制開閘按鈕。
 
 使用者 APP (App Inventor)： 查詢剩餘車位、試算停車費。
+
 ![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
-#### 圖2：使用者 App 操作業務流程圖
+
+#### 圖 4：使用者 App 操作業務流程圖
 
 #### 3. 介面設計 (Interface Design)
 ##### 3.1 外部介面 (External Interface) - API 設計
@@ -183,7 +187,7 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
 
-#### 圖3API 表格
+#### 圖 5：API 表格
 
 ##### 3.2 內部介面 (Internal Interface) - 資料庫存取
 後端程式透過 SQL Connector (如 Python 的 mysql-connector 或 SQLAlchemy) 與 MySQL 溝通。
@@ -322,7 +326,7 @@ Response (JSON):
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E5%BE%AA%E5%BA%8F%E5%9C%96.drawio.png)
 
-#### 圖4：無障礙車位違規偵測時序圖
+#### 圖 7：無障礙車位違規偵測時序圖
 
 #### 4. 模組封裝建議 (Implementation Suggestions)
 為了讓程式碼整潔，建議在詳細設計階段就定義好 Python 的 Class 結構：
@@ -335,7 +339,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E9%A1%9E%E5%88%A5%E5%9C%96.drawio.png)
 
-#### 圖 5：後端系統類別結構圖
+#### 圖 8：後端系統類別結構圖
 
 ### 測試計畫書
 #### 1 測試目標與範圍 (Objectives & Scope)
@@ -360,7 +364,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/2.jpg)
 
-#### 圖6測試環境圖
+#### 圖 9：測試環境圖
 
 #### 3 測試策略 (Test Strategy)
 本專案採用 由下而上 (Bottom-Up) 的測試策略，先確保底層硬體與單一模組無誤，再進行整體流程驗證。
@@ -376,7 +380,7 @@ API 介面測試： 使用 Postman 發送模擬的 JSON 請求至後端 Server�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E6%B8%AC%E8%A9%A6%E6%A1%88%E4%BE%8B.png)
 
-#### 圖5：測試案例圖
+#### 圖 10：測試案例圖
 
 #### 5.結論與未來展望 (Conclusion and Future Prospects)
 

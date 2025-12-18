@@ -53,9 +53,9 @@
 費率設定： 可調整計費標準（如每小時費率、免費時段）。
 
 #### 3. 性能需求 (Performance Requirements)
-此部分定義系統的「速度」與「穩定性」，是資工專題評分的重要指標。
 
 ##### 3.1 時間特性 (Time Constraints)
+
 車牌辨識速度： 從車輛觸發感測器到完成辨識並送出開閘訊號，延遲時間需小於 2 秒。
 
 資料庫回應時間： 前端查詢剩餘車位或計費請求，資料庫 Query 回應需在 500ms (0.5秒) 內完成。
@@ -63,15 +63,19 @@
 硬體感測延遲： 無障礙車位感測器 (如超音波) 狀態改變後，後端資料庫需在 1 秒內 更新狀態。
 
 ##### 3.2 準確性 (Accuracy)
+
 車位狀態準確度： 硬體感測器對於「有車/無車」的判斷準確度需達 95% 以上（需處理誤判，如路人經過）。
 
 車牌辨識率： 在標準光源環境下，OpenCV/AI 模型的辨識準確率需達 90% 以上。
 
 ##### 3.3 可靠性 (Reliability)
+
 例外處理： 若網路中斷，地端硬體 (ESP32) 需具備離線模式，可暫存進出紀錄，待網路恢復後自動上傳 MySQL。
 
 #### 4. 介面要求 (Interface Requirements)
+
 ##### 4.1 使用者介面 (GUI) - Web/App
+
 視覺化車位圖 (Visual Map)：
 
 管理員介面需繪製停車場平面圖。
@@ -83,6 +87,7 @@
 操作回饋： 所有按鈕點擊後需有 Loading 動畫或 Toast 訊息提示（如：「修改成功」、「連線逾時」）。
 
 ##### 4.2 硬體介面 (Hardware Interface)
+
 警示裝置： 無障礙車位旁需設置 LED 燈條與蜂鳴器。
 
 合法停放： 亮綠燈/熄燈。
@@ -96,15 +101,19 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 資料格式統一使用 JSON。
 
 ##### 4.3 資料庫介面 (Database Interface)
+
 使用 MySQL 作為關聯式資料庫。
 
 需設計正規化 (Normalization) 至少達 3NF 的 Schema，包含 Parking_Lots, Records, Users, Violations 等資料表。
 
 ### 概要設計說明書
+
 #### 1. 系統架構設計 (System Architecture Design)
+
 本系統採用 B/S (Browser/Server) 與 Client/Server 混合架構，整體邏輯分層如下：
 
 ##### 1.1 邏輯架構圖 (Logical Architecture) - 三層式架構
+
 系統分為 感知層 (Perception/Client)、業務邏輯層 (Business Logic) 與 資料層 (Data)。
 
 感知層 (Client Tier & IoT Edge)：
@@ -122,6 +131,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 資料庫： MySQL。負責儲存使用者資料、停車紀錄、違規影像路徑與費率設定。
 
 ##### 1.2 實體部署架構 (Physical Architecture)
+
 地端 (Local): 停車場入口閘門控制器、無障礙車位監測模組 (ESP32)。
 
 雲端/伺服器端 (Server): 部署於實驗室伺服器或雲端 (如 AWS/GCP)，運行 Web Server 與 Database。
@@ -131,9 +141,11 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 #### 圖 2：系統實體部署架構圖
 
 #### 2. 系統模組劃分 (Module Decomposition)
+
 為了方便分工開發，將系統劃分為以下四大核心模組：
 
 ##### 2.1 硬體控制模組 (Hardware Control Module)
+
 功能： 直接控制電子元件。
 
 子模組：
@@ -149,6 +161,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 #### 圖 3：地端硬體接線示意圖
 
 ##### 2.2 影像處理模組 (Image Processing Module)
+
 功能： 處理進出場與車位監控的影像分析。
 
 子模組：
@@ -158,6 +171,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 違規偵測 (Violation logic)： (針對無障礙車位) 當硬體感測到有車，但車牌辨識結果不在「身障白名單」內，標記為違規。
 
 ##### 2.3 後端管理模組 (Backend Management Module)
+
 功能： 系統的大腦，處理所有邏輯運算。
 
 子模組：
@@ -169,6 +183,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 ##### 2.4 前端互動模組 (Frontend Interaction Module)
+
 功能： 提供視覺化介面。
 
 子模組：
@@ -182,7 +197,9 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 #### 圖 4：使用者 App 操作業務流程圖
 
 #### 3. 介面設計 (Interface Design)
+
 ##### 3.1 外部介面 (External Interface) - API 設計
+
 定義硬體與軟體、前端與後端溝通的標準。採用 HTTP RESTful 風格，回傳格式為 JSON。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
@@ -190,6 +207,7 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 #### 圖 5：API 表格
 
 ##### 3.2 內部介面 (Internal Interface) - 資料庫存取
+
 後端程式透過 SQL Connector (如 Python 的 mysql-connector 或 SQLAlchemy) 與 MySQL 溝通。
 
 主要資料表 (Entities):
@@ -203,6 +221,7 @@ Records (進出紀錄)
 Violations (違規紀錄)
 
 ##### 3.3 人機介面 (User Interface, UI) 設計規範
+
 管理後台：
 
 採用「左側選單、右側內容」的佈局。
@@ -214,6 +233,7 @@ Violations (違規紀錄)
 首頁即顯示大字體的「剩餘車位數」，避免駕駛分心。
 
 #### 4. 資料庫概要設計 (Data Design Overview)
+
 (詳細的 Schema 會在詳細設計階段定義，此處先定義實體關係)
 
 系統主要包含以下實體 (Entities)：
@@ -231,6 +251,7 @@ Violations (違規紀錄)
 一台 車輛 可以有多筆 進出紀錄 (1:N)。
 
 #### 5. 技術選型 (Technology Stack)
+
 這是根據你目前的專題規劃所建議的技術清單：
 
 前端 (Frontend): HTML/CSS/JS (管理後台), App Inventor (手機 App)。
@@ -244,10 +265,13 @@ Violations (違規紀錄)
 演算法 (Algorithm): OpenCV (影像處理), Tesseract OCR (文字辨識)。
 
 ### 詳細設計說明書
+
 #### 1. 資料庫詳細設計 (Database Physical Design)
+
 本系統使用 MySQL 資料庫。以下是將概念轉化為實際 SQL 表格的結構設計。
 
 ##### 1.1 實體關聯圖 (ER Diagram)
+
 這張圖定義了資料表 (Table) 的欄位 (Column)、主鍵 (PK) 與外鍵 (FK)。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E8%BB%9F%E5%B7%A5ER%E5%9C%96.png)
@@ -255,6 +279,7 @@ Violations (違規紀錄)
 圖 6：資料庫實體關聯圖 (ER Diagram)
 
 ##### 1.2 資料表規格說明
+
 Users (白名單): 儲存身障人士資訊，用於判斷是否違規。
 
 Records (流水帳): 當車輛進場時，exit_time 與 fee 預設為 NULL/0，直到出場更新。
@@ -262,9 +287,11 @@ Records (流水帳): 當車輛進場時，exit_time 與 fee 預設為 NULL/0，�
 Violations (違規): 專門記錄無障礙車位被非白名單車輛佔用的事件。
 
 #### 2. API 介面詳細設計 (Interface Specification)
+
 定義前端 (App/Web) 與地端硬體 (ESP32) 如何與後端伺服器交換資料。採用 JSON 格式。
 
 ##### 2.1 硬體回報 API (ESP32 -> Server)
+
 用途： 當超音波感測器狀態改變時呼叫。
 
 Endpoint: POST /api/hardware/update_status
@@ -278,6 +305,7 @@ Request Body (JSON):
 Logic: 後端收到 is_occupied: true 且該車位是無障礙車位時，觸發「違規檢查流程」。
 
 ##### 2.2 違規警示 API (Server -> ESP32)
+
 用途： 後端判斷違規後，命令 ESP32 亮紅燈/鳴叫。 (註：通常由 ESP32 輪詢或透過 MQTT 訂閱 Topic，以下以回應模式為例)
 
 Response (JSON):
@@ -285,7 +313,9 @@ Response (JSON):
       "status": "success",
       "action_command": "ALERT_ON"  // 或 "ALERT_OFF"
     }
+    
 ##### 2.3 車位查詢 API (App -> Server)
+
 用途： 手機端查詢剩餘車位。
 
 Endpoint: GET /api/spots/status
@@ -299,10 +329,13 @@ Response (JSON):
         {"id": "Disable_01", "status": "occupied"}
       ]
     }
+    
 #### 3. 模組演算法與邏輯流程 (Algorithms & Logic Flow)
+
 這是程式實作的核心，我們針對兩個最關鍵的邏輯進行詳細描述。
 
 ##### 3.1 演算法一：感測器訊號濾波 (防誤判演算法)
+
 問題： 超音波感測器可能會因為路人經過或訊號抖動，導致數值瞬間跳動，造成系統誤判有車。 解決方案： 實作「時間視窗濾波 (Time Window Filtering)」邏輯。
 
 邏輯描述：
@@ -322,6 +355,7 @@ Response (JSON):
 避免路人經過瞬間觸發誤報。
 
 ##### 3.2 演算法二：無障礙車位違規判斷邏輯 (Core Logic)
+
 問題： 如何判斷停在無障礙車位上的車是否違規？ 輸入： 車位 ID、當下拍攝的車牌影像。 輸出： 是否違規 (Boolean)、控制指令。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E5%BE%AA%E5%BA%8F%E5%9C%96.drawio.png)
@@ -329,6 +363,7 @@ Response (JSON):
 #### 圖 7：無障礙車位違規偵測時序圖
 
 #### 4. 模組封裝建議 (Implementation Suggestions)
+
 為了讓程式碼整潔，建議在詳細設計階段就定義好 Python 的 Class 結構：
 
 class HardwareController: 負責處理 MQTT/HTTP 訊號，不含業務邏輯。
@@ -342,8 +377,11 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 #### 圖 8：後端系統類別結構圖
 
 ### 測試計畫書
+
 #### 1 測試目標與範圍 (Objectives & Scope)
+
 ##### 1.1 測試目標
+
 本計畫旨在驗證「智慧停車場管理系統」之軟硬體整合穩定性與功能正確性。主要目標包含：
 
 功能驗證： 確保車牌辨識進出、計費邏輯、無障礙車位違規偵測等核心功能運作正常。
@@ -353,6 +391,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 可靠性測試： 確保在地端網路波動或硬體異常時，系統具備基本的錯誤處理能力。
 
 ##### 1.2 測試範圍
+
 單元測試 (Unit Test)： 針對 ESP32 感測器讀數、伺服馬達控制、Python 資料庫存取函式進行獨立測試。
 
 整合測試 (Integration Test)： 驗證 ESP32 與後端 Server 的 API 資料傳輸，以及 Server 與資料庫的連動。
@@ -360,6 +399,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 系統測試 (System Test)： 模擬真實使用者情境，進行端對端 (End-to-End) 的完整流程測試。
 
 #### 2 測試環境配置 (Test Environment)
+
 為模擬真實運作場景，本專案建立了一套微縮模型進行測試。詳細軟硬體配置如下表所示：
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/2.jpg)
@@ -367,6 +407,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 #### 圖 9：測試環境圖
 
 #### 3 測試策略 (Test Strategy)
+
 本專案採用 由下而上 (Bottom-Up) 的測試策略，先確保底層硬體與單一模組無誤，再進行整體流程驗證。
 
 硬體單元測試： 使用 Arduino Serial Monitor 監控超音波數值與馬達角度，確保感測器無誤動作。
@@ -376,6 +417,7 @@ API 介面測試： 使用 Postman 發送模擬的 JSON 請求至後端 Server�
 全系統情境測試： 實際操作玩具車進行進出場與違規停車，觀察系統反應。
 
 #### 4 測試案例 (Test Cases)
+
 以下列出最具代表性的關鍵功能測試案例：
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E6%B8%AC%E8%A9%A6%E6%A1%88%E4%BE%8B.png)

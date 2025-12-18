@@ -229,8 +229,6 @@ Violations (違規紀錄)
 
 #### 4. 資料庫概要設計 (Data Design Overview)
 
-(詳細的 Schema 會在詳細設計階段定義，此處先定義實體關係)
-
 系統主要包含以下實體 (Entities)：
 
 車位 (Spot): 屬性包含編號、類型 (一般/無障礙)、目前狀態。

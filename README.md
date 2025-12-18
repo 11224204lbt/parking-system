@@ -144,6 +144,8 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%A1%AC%E9%AB%94%E6%8E%A5%E7%B7%9A%E5%9C%96.draw.io.png)
 
+#### 圖 3：地端硬體接線示意圖
+
 ##### 2.2 影像處理模組 (Image Processing Module)
 功能： 處理進出場與車位監控的影像分析。
 

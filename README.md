@@ -126,6 +126,8 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%B3%BB%E7%B5%B1%E9%83%A8%E7%BD%B2%E5%9C%96.draw.io.png)
 
+#### 圖 X：系統實體部署架構圖
+
 #### 2. 系統模組劃分 (Module Decomposition)
 為了方便分工開發，將系統劃分為以下四大核心模組：
 

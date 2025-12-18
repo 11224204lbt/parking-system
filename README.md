@@ -31,7 +31,7 @@
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%94%A8%E4%BE%8B%E5%9C%96.png)
 
-#### 圖 0：停車場管理系統用例圖
+#### 圖 1：停車場管理系統用例圖
 
 功能需求依據使用者角色分為三大類：
 
@@ -47,7 +47,7 @@
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/4.jpg)
 
-#### 圖 1：一般車主停車與繳費情境示意圖 
+#### 圖 2：一般車主停車與繳費情境示意圖 
 
 ##### 2.2 無障礙車位使用者 (Accessible Parking User) - 專題核心亮點
 
@@ -91,7 +91,7 @@
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2%E7%8B%80%E6%85%8B%E9%A1%AF%E7%A4%BA%E8%88%87%E4%BA%92%E5%8B%95%E5%9B%9E%E9%A5%8B%E9%9C%80%E6%B1%82%E7%A4%BA%E6%84%8F%E5%9C%96.png)
 
-圖 X：使用者介面狀態顯示與互動回饋需求示意圖
+#### 圖 3：使用者介面狀態顯示與互動回饋需求示意圖
 
 ##### 4.2 硬體介面 (Hardware Interface)
 
@@ -123,7 +123,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E7%B3%BB%E7%B5%B1%E4%B8%89%E5%B1%A4%E5%BC%8F%E9%82%8F%E8%BC%AF%E6%9E%B6%E6%A7%8B%E5%9C%96.png)
 
-圖 X：系統三層式邏輯架構圖
+#### 圖 4：系統三層式邏輯架構圖
 
 ##### 1.2 實體部署架構 (Physical Architecture)
 
@@ -133,7 +133,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%B3%BB%E7%B5%B1%E9%83%A8%E7%BD%B2%E5%9C%96.draw.io.png)
 
-#### 圖 2：系統實體部署架構圖
+#### 圖 5：系統實體部署架構圖
 
 #### 2. 系統模組劃分 (Module Decomposition)
 
@@ -153,7 +153,7 @@ ESP32 與後端伺服器之間使用 Wi-Fi (HTTP RESTful API 或 MQTT) 進行通
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E7%A1%AC%E9%AB%94%E6%8E%A5%E7%B7%9A%E5%9C%96.draw.io.png)
 
-#### 圖 3：地端硬體接線示意圖
+#### 圖 6：地端硬體接線示意圖
 
 ##### 2.2 影像處理模組 (Image Processing Module)
 
@@ -189,7 +189,7 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/3.jpg)
 
-#### 圖 4：使用者 App 操作業務流程圖
+#### 圖 7：使用者 App 操作業務流程圖
 
 #### 3. 介面設計 (Interface Design)
 
@@ -199,7 +199,7 @@ API 介面： 提供 RESTful API 供 App 和硬體呼叫。
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/1.jpg)
 
-#### 圖 5：API 表格
+#### 圖 8：API 表格
 
 ##### 3.2 內部介面 (Internal Interface) - 資料庫存取
 
@@ -269,7 +269,7 @@ Violations (違規紀錄)
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E8%BB%9F%E5%B7%A5ER%E5%9C%96.png)
 
-圖 6：資料庫實體關聯圖 (ER Diagram)
+圖 9：資料庫實體關聯圖 (ER Diagram)
 
 ##### 1.2 資料表規格說明
 
@@ -381,7 +381,7 @@ Response Body (JSON):
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E5%BE%AA%E5%BA%8F%E5%9C%96.drawio.png)
 
-#### 圖 7：無障礙車位違規偵測時序圖
+#### 圖 10：無障礙車位違規偵測時序圖
 
 #### 4. 模組封裝建議 (Implementation Suggestions)
 
@@ -395,7 +395,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/UML%20%E9%A1%9E%E5%88%A5%E5%9C%96.drawio.png)
 
-#### 圖 8：後端系統類別結構圖
+#### 圖 11：後端系統類別結構圖
 
 ### 測試計畫書
 
@@ -425,7 +425,7 @@ class ParkingManager: 核心邏輯層，負責呼叫資料庫並決定「是否�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/2.jpg)
 
-#### 圖 9：測試環境圖
+#### 圖 12：測試環境圖
 
 #### 3 測試策略 (Test Strategy)
 
@@ -443,7 +443,7 @@ API 介面測試： 使用 Postman 發送模擬的 JSON 請求至後端 Server�
 
 ![03](https://github.com/11224204lbt/parking-system/blob/main/%E6%B8%AC%E8%A9%A6%E6%A1%88%E4%BE%8B.png)
 
-#### 圖 10：測試案例圖
+#### 圖 13：測試案例圖
 
 #### 5.結論與未來展望 (Conclusion and Future Prospects)
 
